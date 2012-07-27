@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="feedback.js" basedir=".">
+    <property name="src.dir" location="src"/>
+    <property name="lib.dir" location="../lib"/>
+
+    <property name="JS_NAME" value="feedback.js"/>
+    <property name="JS_NAME_MIN" value="feedback.min.js"/>
+
+    
+
+    <path id="sourcefiles">
+        <fileset dir="${src.dir}" includes="Core.js"/> 
+    </path>
+    
+
+ 
+    <path id="minified">
+        <fileset dir="." includes="tmp.js"/>    
+    </path>
+    
+    <taskdef name="jscomp" classname="com.google.javascript.jscomp.ant.CompileTask"
+           classpath="${lib.dir}/compiler.jar"/>
+    
+    <target name="build">
+        <concat fixlastline="yes" destfile="${JS_NAME}">
+            <path refid="sourcefiles"/>
+        </concat>
+        
+        <jscomp compilationLevel="simple" warning="verbose" 
+            debug="false" 
+            output="tmp.js">
+
+            <sources dir=".">
+                <file name="${JS_NAME}" />
+            </sources>
+        </jscomp>
+        
+        <concat fixlastline="yes" destfile="${JS_NAME_MIN}">
+            <path refid="minified"/>
+        </concat>  
+        <delete file="tmp.js"/>
+        
+    </target>
+
+</project>
+
