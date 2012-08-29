@@ -567,17 +567,6 @@
                         modalBody.appendChild( canvasCopy );
 
                         nextButton.firstChild.nodeValue = "Send form";
-                        nextButton.onclick = function()
-                                                 {
-                                                    var http = new XMLHttpRequest();
-                                                    var url = URL;
-                                                    var params = "message=" + message.value + "&image=" + canvasCopy.toDataURL("image/png");
-                                                    http.open("POST", url, true);
-                                                    //Send the proper header information along with the request
-                                                    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                                                    http.send(params);
-                                                    returnMethods.close();
-                                                 };
 
                         h2cCanvas.classList.add("feedback-canvas-complete");
 
