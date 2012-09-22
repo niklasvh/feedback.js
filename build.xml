@@ -9,6 +9,7 @@
     
 
     <path id="sourcefiles">
+        <fileset dir="${src.dir}" includes="license.txt"/> 
         <fileset dir="${src.dir}" includes="pre.txt"/> 
         <fileset dir="${src.dir}" includes="Core.js"/> 
         <fileset dir="${src.dir}" includes="Page.js"/> 
@@ -25,8 +26,7 @@
         <fileset dir="." includes="tmp.js"/>    
     </path>
     
-    <taskdef name="jscomp" classname="com.google.javascript.jscomp.ant.CompileTask"
-           classpath="${lib.dir}/compiler.jar"/>
+    <taskdef name="jscomp" classname="com.google.javascript.jscomp.ant.CompileTask" classpath="${lib.dir}/compiler.jar"/>
     
     <target name="build">
         <concat fixlastline="yes" destfile="${JS_NAME}">
@@ -43,6 +43,7 @@
         </jscomp>
         
         <concat fixlastline="yes" destfile="${JS_NAME_MIN}">
+            <fileset dir="${src.dir}" includes="license.txt"/> 
             <path refid="minified"/>
         </concat>  
         <delete file="tmp.js"/>
