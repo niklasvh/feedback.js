@@ -9,7 +9,14 @@
     
 
     <path id="sourcefiles">
+        <fileset dir="${src.dir}" includes="pre.txt"/> 
         <fileset dir="${src.dir}" includes="Core.js"/> 
+        <fileset dir="${src.dir}" includes="Page.js"/> 
+        <fileset dir="${src.dir}" includes="Send.js"/> 
+        <fileset dir="${src.dir}" includes="pages/Form.js"/> 
+        <fileset dir="${src.dir}" includes="pages/Review.js"/> 
+        <fileset dir="${src.dir}" includes="pages/Screenshot.js"/> 
+        <fileset dir="${src.dir}" includes="post.txt"/> 
     </path>
     
 
