@@ -85,6 +85,8 @@ window.Feedback = function( options ) {
     options.label = options.label || "Send Feedback";
     options.header = options.header || "Send Feedback";
     options.url = options.url || "/";
+    options.adapter = options.adapter || new window.Feedback.XHR( options.url );
+    
     options.nextLabel = options.nextLabel || "Continue";
     options.reviewLabel = options.reviewLabel || "Review";
     options.sendLabel = options.sendLabel || "Send";
@@ -93,7 +95,7 @@ window.Feedback = function( options ) {
     options.messageSuccess = options.messageSuccess || "Your feedback was sent succesfully.";
     options.messageError = options.messageError || "There was an error sending your feedback to the server.";
     
-    
+  
     if (options.pages === undefined ) {
         options.pages = [
             new window.Feedback.Form(),
@@ -128,7 +130,7 @@ window.Feedback = function( options ) {
             document.body.appendChild( glass );
 
             // modal close button
-            a.className =  options.closeClass || "close";
+            a.className =  "feedback-close";
             a.onclick = returnMethods.close;
             a.href = "#";
 
@@ -149,7 +151,7 @@ window.Feedback = function( options ) {
             // Next button
             nextButton = element( "button", options.nextLabel );
 
-            nextButton.className =  options.buttonClass || "btn";
+            nextButton.className =  "feedback-btn";
             nextButton.onclick = function() {
                 
                 if (currentPage > 0 ) {
@@ -162,7 +164,7 @@ window.Feedback = function( options ) {
                 emptyElements( modalBody );
 
                 if ( currentPage === len ) {
-                    returnMethods.send( options.adapter || new window.Feedback.XHR( options.url ) );
+                    returnMethods.send( options.adapter );
                 } else {
 
                     options.pages[ currentPage ].start( modal, modalHeader, modalFooter, nextButton );
@@ -194,7 +196,7 @@ window.Feedback = function( options ) {
             modalFooter.appendChild( nextButton );
 
 
-            modal.className =  options.modalClass || "modal";
+            modal.className =  "feedback-modal";
             modal.setAttribute(H2C_IGNORE, true); // don't render in html2canvas
 
 
@@ -279,7 +281,7 @@ window.Feedback = function( options ) {
     options = options || {};
 
     button = element( "button", options.label );
-    button.className = options.labelClass || "btn bottom-right";
+    button.className = "feedback-btn feedback-bottom-right";
 
     button.setAttribute(H2C_IGNORE, true);
 
@@ -651,7 +653,7 @@ window.Feedback.Screenshot.prototype.start = function( modal, modalHeader, modal
 
         // add highlight and blackout buttons
         for (var i = 0; i < 2; i++ ) {
-            buttonItem[ i ].className = 'btn btn-small ' + (i === 0 ? 'active' : 'btn-inverse');
+            buttonItem[ i ].className = 'feedback-btn feedback-btn-small ' + (i === 0 ? 'active' : 'feedback-btn-inverse');
 
             buttonItem[ i ].href = "#";
             buttonItem[ i ].onclick = buttonClickFunction;

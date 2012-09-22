@@ -221,7 +221,7 @@ window.Feedback.Screenshot.prototype.start = function( modal, modalHeader, modal
 
         // add highlight and blackout buttons
         for (var i = 0; i < 2; i++ ) {
-            buttonItem[ i ].className = 'btn btn-small ' + (i === 0 ? 'active' : 'btn-inverse');
+            buttonItem[ i ].className = 'feedback-btn feedback-btn-small ' + (i === 0 ? 'active' : 'feedback-btn-inverse');
 
             buttonItem[ i ].href = "#";
             buttonItem[ i ].onclick = buttonClickFunction;
