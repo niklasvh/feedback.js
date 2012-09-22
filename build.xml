@@ -16,7 +16,8 @@
         <fileset dir="${src.dir}" includes="Send.js"/> 
         <fileset dir="${src.dir}" includes="pages/Form.js"/> 
         <fileset dir="${src.dir}" includes="pages/Review.js"/> 
-        <fileset dir="${src.dir}" includes="pages/Screenshot.js"/> 
+        <fileset dir="${src.dir}" includes="pages/Screenshot.js"/>
+        <fileset dir="${src.dir}" includes="send/xhr.js"/> 
         <fileset dir="${src.dir}" includes="post.txt"/> 
     </path>
     

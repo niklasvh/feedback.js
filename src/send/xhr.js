@@ -19,6 +19,6 @@ window.Feedback.XHR.prototype.send = function( data, callback ) {
     
     xhr.open( "POST", this.url, true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send( "data=" + encodeURIComponent( JSON.stringify( data ) ) );
+    xhr.send( "data=" + encodeURIComponent( window.JSON.stringify( data ) ) );
      
 };
