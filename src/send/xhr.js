@@ -1,7 +1,7 @@
-window.Feedback.XHR = function( options ) {
+window.Feedback.XHR = function( url ) {
     
     this.xhr = new XMLHttpRequest();
-    this.url = options.url || "/";
+    this.url = url;
 
 };
 

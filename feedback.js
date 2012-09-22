@@ -81,8 +81,18 @@ window.Feedback = function( options ) {
 
     options = options || {};
 
+    // default properties
     options.label = options.label || "Send Feedback";
     options.header = options.header || "Send Feedback";
+    options.url = options.url || "/";
+    options.nextLabel = options.nextLabel || "Continue";
+    options.reviewLabel = options.reviewLabel || "Review";
+    options.sendLabel = options.sendLabel || "Send";
+    options.closeLabel = options.closeLabel || "Close";
+    
+    options.messageSuccess = options.messageSuccess || "Your feedback was sent succesfully.";
+    options.messageError = options.messageError || "There was an error sending your feedback to the server.";
+    
     
     if (options.pages === undefined ) {
         options.pages = [
@@ -109,7 +119,7 @@ window.Feedback = function( options ) {
                 }
             }
 
-            var a = element("a", options.closeLabel || "×"),
+            var a = element("a", "×"),
             modalHeader = document.createElement("div"),
             // modal container
             modalFooter = document.createElement("div");
@@ -137,7 +147,7 @@ window.Feedback = function( options ) {
 
 
             // Next button
-            nextButton = element( "button", options.nextLabel || "Continue" );
+            nextButton = element( "button", options.nextLabel );
 
             nextButton.className =  options.buttonClass || "btn";
             nextButton.onclick = function() {
@@ -152,7 +162,7 @@ window.Feedback = function( options ) {
                 emptyElements( modalBody );
 
                 if ( currentPage === len ) {
-                    returnMethods.send( options.adapter || new window.Feedback.XHR( options ) );
+                    returnMethods.send( options.adapter || new window.Feedback.XHR( options.url ) );
                 } else {
 
                     options.pages[ currentPage ].start( modal, modalHeader, modalFooter, nextButton );
@@ -167,12 +177,12 @@ window.Feedback = function( options ) {
 
                     // if last page, change button label to send
                     if ( currentPage === len ) {
-                        nextButton.firstChild.nodeValue = options.sendLabel || "Send";
+                        nextButton.firstChild.nodeValue = options.sendLabel;
                     }
                     
                     // if next page is review page, change button label
                     if ( options.pages[ currentPage ] instanceof window.Feedback.Review ) {   
-                        nextButton.firstChild.nodeValue = options.reviewLabel || "Review";
+                        nextButton.firstChild.nodeValue = options.reviewLabel;
                     }
                         
 
@@ -244,7 +254,7 @@ window.Feedback = function( options ) {
                 emptyElements( modalBody );
                 nextButton.disabled = false;
                 
-                nextButton.firstChild.nodeValue = options.closeLabel || "Close";
+                nextButton.firstChild.nodeValue = options.closeLabel;
                 
                 nextButton.onclick = function() {
                     returnMethods.close();
@@ -252,9 +262,9 @@ window.Feedback = function( options ) {
                 };
                 
                 if ( success === true ) {
-                    modalBody.appendChild( document.createTextNode("Your feedback was sent succesfully.") );
+                    modalBody.appendChild( document.createTextNode( options.messageSuccess ) );
                 } else {
-                    modalBody.appendChild( document.createTextNode( "There was an error sending your feedback to the server. " ) );
+                    modalBody.appendChild( document.createTextNode( options.messageError ) );
                 }
                 
             } );
@@ -262,7 +272,7 @@ window.Feedback = function( options ) {
         }
     };
 
-    glass.classList.add("feedback-glass");
+    glass.className = "feedback-glass";
     glass.style.pointerEvents = "none";
     glass.setAttribute(H2C_IGNORE, true);
 
@@ -432,7 +442,7 @@ window.Feedback.Screenshot = function( options ) {
 window.Feedback.Screenshot.prototype = new window.Feedback.Page();
 
 window.Feedback.Screenshot.prototype.end = function( modal ){
-    modal.classList.remove('feedback-animate-toside');
+    modal.className = modal.className.replace(/feedback\-animate\-toside/, "");
 
     // remove event listeners
     document.body.removeEventListener("mousemove", this.mouseMoveEvent, false);
@@ -468,7 +478,7 @@ window.Feedback.Screenshot.prototype.start = function( modal, modalHeader, modal
         this.mouseMoveEvent = function( e ) {
 
             // set close button
-            if ( e.target !== previousElement && (e.target.classList.contains( $this.options.blackoutClass ) || e.target.classList.contains( $this.options.highlightClass ))) {
+            if ( e.target !== previousElement && (e.target.className.indexOf( $this.options.blackoutClass ) !== -1 || e.target.className.indexOf( $this.options.highlightClass ) !== -1)) {
 
                 var left = (parseInt(e.target.style.left, 10) +  parseInt(e.target.style.width, 10));
                 left = Math.max( left, 10 );
@@ -539,7 +549,7 @@ window.Feedback.Screenshot.prototype.start = function( modal, modalHeader, modal
             if ( action === false) {
                 if ( blackoutBox.getAttribute(dataExclude) === "false") {
                     var blackout = document.createElement("div");
-                    blackout.classList.add( $this.options.blackoutClass );
+                    blackout.className = $this.options.blackoutClass;
                     blackout.style.left = blackoutBox.style.left;
                     blackout.style.top = blackoutBox.style.top;
                     blackout.style.width = blackoutBox.style.width;
@@ -551,13 +561,13 @@ window.Feedback.Screenshot.prototype.start = function( modal, modalHeader, modal
             } else {
                 if ( highlightBox.getAttribute(dataExclude) === "false") {
 
-                    highlightBox.classList.add( $this.options.highlightClass );
-                    highlightBox.classList.remove( feedbackHighlightElement );
+                    highlightBox.className += " " + $this.options.highlightClass;
+                    highlightBox.className = highlightBox.className.replace(/feedback\-highlight\-element/g,"");
                     $this.highlightBox = highlightBox = document.createElement('canvas');
 
                     ctx = highlightBox.getContext("2d");
 
-                    highlightBox.classList.add( feedbackHighlightElement );
+                    highlightBox.className += " " + feedbackHighlightElement;
 
                     document.body.appendChild( highlightBox );
                     clearBox();
@@ -582,8 +592,15 @@ window.Feedback.Screenshot.prototype.start = function( modal, modalHeader, modal
         ctx = highlightBox.getContext("2d"),
         buttonClickFunction = function( e ) {
             e.preventDefault();
-            blackoutButton.classList.toggle("active");
-            highlightButton.classList.toggle("active");
+            
+            if (blackoutButton.className.indexOf("active") === -1) {
+                blackoutButton.className += " active";
+                highlightButton.className = highlightButton.className.replace(/active/g,"");
+            } else {
+                highlightButton.className += " active";
+                blackoutButton.className = blackoutButton.className.replace(/active/g,"");
+            }
+
             action = !action;
         },
         clearBox = function() {
@@ -610,7 +627,7 @@ window.Feedback.Screenshot.prototype.start = function( modal, modalHeader, modal
         previousElement;
 
 
-        modal.classList.add('feedback-animate-toside');
+        modal.className += ' feedback-animate-toside';
 
 
         highlightClose.id = "feedback-highlight-close";
@@ -651,7 +668,7 @@ window.Feedback.Screenshot.prototype.start = function( modal, modalHeader, modal
         highlightContainer.style.width = this.h2cCanvas.width + "px";
         highlightContainer.style.height = this.h2cCanvas.height + "px";
 
-        this.highlightBox.classList.add( feedbackHighlightElement );
+        this.highlightBox.className += " " + feedbackHighlightElement;
         this.blackoutBox.id = "feedback-blackout-element";
         document.body.appendChild( this.highlightBox );
         highlightContainer.appendChild( this.blackoutBox );
@@ -826,10 +843,10 @@ window.Feedback.Screenshot.prototype.review = function( dom ) {
     }
     
 };
-window.Feedback.XHR = function( options ) {
+window.Feedback.XHR = function( url ) {
     
     this.xhr = new XMLHttpRequest();
-    this.url = options.url || "/";
+    this.url = url;
 
 };
 

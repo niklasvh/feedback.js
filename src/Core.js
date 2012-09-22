@@ -73,8 +73,18 @@ window.Feedback = function( options ) {
 
     options = options || {};
 
+    // default properties
     options.label = options.label || "Send Feedback";
     options.header = options.header || "Send Feedback";
+    options.url = options.url || "/";
+    options.nextLabel = options.nextLabel || "Continue";
+    options.reviewLabel = options.reviewLabel || "Review";
+    options.sendLabel = options.sendLabel || "Send";
+    options.closeLabel = options.closeLabel || "Close";
+    
+    options.messageSuccess = options.messageSuccess || "Your feedback was sent succesfully.";
+    options.messageError = options.messageError || "There was an error sending your feedback to the server.";
+    
     
     if (options.pages === undefined ) {
         options.pages = [
@@ -101,7 +111,7 @@ window.Feedback = function( options ) {
                 }
             }
 
-            var a = element("a", options.closeLabel || "×"),
+            var a = element("a", "×"),
             modalHeader = document.createElement("div"),
             // modal container
             modalFooter = document.createElement("div");
@@ -129,7 +139,7 @@ window.Feedback = function( options ) {
 
 
             // Next button
-            nextButton = element( "button", options.nextLabel || "Continue" );
+            nextButton = element( "button", options.nextLabel );
 
             nextButton.className =  options.buttonClass || "btn";
             nextButton.onclick = function() {
@@ -144,7 +154,7 @@ window.Feedback = function( options ) {
                 emptyElements( modalBody );
 
                 if ( currentPage === len ) {
-                    returnMethods.send( options.adapter || new window.Feedback.XHR( options ) );
+                    returnMethods.send( options.adapter || new window.Feedback.XHR( options.url ) );
                 } else {
 
                     options.pages[ currentPage ].start( modal, modalHeader, modalFooter, nextButton );
@@ -159,12 +169,12 @@ window.Feedback = function( options ) {
 
                     // if last page, change button label to send
                     if ( currentPage === len ) {
-                        nextButton.firstChild.nodeValue = options.sendLabel || "Send";
+                        nextButton.firstChild.nodeValue = options.sendLabel;
                     }
                     
                     // if next page is review page, change button label
                     if ( options.pages[ currentPage ] instanceof window.Feedback.Review ) {   
-                        nextButton.firstChild.nodeValue = options.reviewLabel || "Review";
+                        nextButton.firstChild.nodeValue = options.reviewLabel;
                     }
                         
 
@@ -236,7 +246,7 @@ window.Feedback = function( options ) {
                 emptyElements( modalBody );
                 nextButton.disabled = false;
                 
-                nextButton.firstChild.nodeValue = options.closeLabel || "Close";
+                nextButton.firstChild.nodeValue = options.closeLabel;
                 
                 nextButton.onclick = function() {
                     returnMethods.close();
@@ -244,9 +254,9 @@ window.Feedback = function( options ) {
                 };
                 
                 if ( success === true ) {
-                    modalBody.appendChild( document.createTextNode("Your feedback was sent succesfully.") );
+                    modalBody.appendChild( document.createTextNode( options.messageSuccess ) );
                 } else {
-                    modalBody.appendChild( document.createTextNode( "There was an error sending your feedback to the server. " ) );
+                    modalBody.appendChild( document.createTextNode( options.messageError ) );
                 }
                 
             } );
@@ -254,7 +264,7 @@ window.Feedback = function( options ) {
         }
     };
 
-    glass.classList.add("feedback-glass");
+    glass.className = "feedback-glass";
     glass.style.pointerEvents = "none";
     glass.setAttribute(H2C_IGNORE, true);
 

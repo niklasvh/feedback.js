@@ -12,7 +12,7 @@ window.Feedback.Screenshot = function( options ) {
 window.Feedback.Screenshot.prototype = new window.Feedback.Page();
 
 window.Feedback.Screenshot.prototype.end = function( modal ){
-    modal.classList.remove('feedback-animate-toside');
+    modal.className = modal.className.replace(/feedback\-animate\-toside/, "");
 
     // remove event listeners
     document.body.removeEventListener("mousemove", this.mouseMoveEvent, false);
@@ -48,7 +48,7 @@ window.Feedback.Screenshot.prototype.start = function( modal, modalHeader, modal
         this.mouseMoveEvent = function( e ) {
 
             // set close button
-            if ( e.target !== previousElement && (e.target.classList.contains( $this.options.blackoutClass ) || e.target.classList.contains( $this.options.highlightClass ))) {
+            if ( e.target !== previousElement && (e.target.className.indexOf( $this.options.blackoutClass ) !== -1 || e.target.className.indexOf( $this.options.highlightClass ) !== -1)) {
 
                 var left = (parseInt(e.target.style.left, 10) +  parseInt(e.target.style.width, 10));
                 left = Math.max( left, 10 );
@@ -119,7 +119,7 @@ window.Feedback.Screenshot.prototype.start = function( modal, modalHeader, modal
             if ( action === false) {
                 if ( blackoutBox.getAttribute(dataExclude) === "false") {
                     var blackout = document.createElement("div");
-                    blackout.classList.add( $this.options.blackoutClass );
+                    blackout.className = $this.options.blackoutClass;
                     blackout.style.left = blackoutBox.style.left;
                     blackout.style.top = blackoutBox.style.top;
                     blackout.style.width = blackoutBox.style.width;
@@ -131,13 +131,13 @@ window.Feedback.Screenshot.prototype.start = function( modal, modalHeader, modal
             } else {
                 if ( highlightBox.getAttribute(dataExclude) === "false") {
 
-                    highlightBox.classList.add( $this.options.highlightClass );
-                    highlightBox.classList.remove( feedbackHighlightElement );
+                    highlightBox.className += " " + $this.options.highlightClass;
+                    highlightBox.className = highlightBox.className.replace(/feedback\-highlight\-element/g,"");
                     $this.highlightBox = highlightBox = document.createElement('canvas');
 
                     ctx = highlightBox.getContext("2d");
 
-                    highlightBox.classList.add( feedbackHighlightElement );
+                    highlightBox.className += " " + feedbackHighlightElement;
 
                     document.body.appendChild( highlightBox );
                     clearBox();
@@ -162,8 +162,15 @@ window.Feedback.Screenshot.prototype.start = function( modal, modalHeader, modal
         ctx = highlightBox.getContext("2d"),
         buttonClickFunction = function( e ) {
             e.preventDefault();
-            blackoutButton.classList.toggle("active");
-            highlightButton.classList.toggle("active");
+            
+            if (blackoutButton.className.indexOf("active") === -1) {
+                blackoutButton.className += " active";
+                highlightButton.className = highlightButton.className.replace(/active/g,"");
+            } else {
+                highlightButton.className += " active";
+                blackoutButton.className = blackoutButton.className.replace(/active/g,"");
+            }
+
             action = !action;
         },
         clearBox = function() {
@@ -190,7 +197,7 @@ window.Feedback.Screenshot.prototype.start = function( modal, modalHeader, modal
         previousElement;
 
 
-        modal.classList.add('feedback-animate-toside');
+        modal.className += ' feedback-animate-toside';
 
 
         highlightClose.id = "feedback-highlight-close";
@@ -231,7 +238,7 @@ window.Feedback.Screenshot.prototype.start = function( modal, modalHeader, modal
         highlightContainer.style.width = this.h2cCanvas.width + "px";
         highlightContainer.style.height = this.h2cCanvas.height + "px";
 
-        this.highlightBox.classList.add( feedbackHighlightElement );
+        this.highlightBox.className += " " + feedbackHighlightElement;
         this.blackoutBox.id = "feedback-blackout-element";
         document.body.appendChild( this.highlightBox );
         highlightContainer.appendChild( this.blackoutBox );
