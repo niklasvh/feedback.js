@@ -1,3 +1,4 @@
+.DS_Store
 nbproject/
 libs/flashcanvas.*
 libs/canvas2png.js
