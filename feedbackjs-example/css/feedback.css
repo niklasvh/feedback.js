@@ -78,9 +78,9 @@
     background-clip: padding-box;
 
 
-    -webkit-transition:	all 2s ease 0s;
-    -moz-transition: all 2s ease 0s;	
-    -ms-transition: all 2s ease 0s;	
+    -webkit-transition: all 2s ease 0s;
+    -moz-transition: all 2s ease 0s;  
+    -ms-transition: all 2s ease 0s; 
     -o-transition: all 2s ease 0s;
 
 }
@@ -470,9 +470,9 @@ button.feedback-btn.small, input[type="submit"].feedback-btn.small {
 }
 
 .feedback-animate-review {
-    -webkit-transition:	all 2s ease 0s;
-    -moz-transition: all 2s ease 0s;	
-    -ms-transition: all 2s ease 0s;	
+    -webkit-transition: all 2s ease 0s;
+    -moz-transition: all 2s ease 0s;  
+    -ms-transition: all 2s ease 0s; 
     -o-transition: all 2s ease 0s;
 
     top: 50%;
