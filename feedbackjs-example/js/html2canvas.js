@@ -2729,18 +2729,18 @@ html2canvas = function( elements, opts ) {
         width: null,
         height: null,
         taintTest: true, // do a taint test with all images before applying to canvas
-		renderer: "Canvas"
+    renderer: "Canvas"
     }, renderer;
 
     options = _html2canvas.Util.Extend(opts, options);
 
-	if (typeof options.renderer === "string" && _html2canvas.Renderer[options.renderer] !== undefined) {
-		options._renderer = _html2canvas.Renderer[options.renderer]( options );
-	} else if (typeof options.renderer === "function") {
-		options._renderer = options.renderer( options );
-	} else {
-		throw("Unknown renderer");
-	}
+  if (typeof options.renderer === "string" && _html2canvas.Renderer[options.renderer] !== undefined) {
+    options._renderer = _html2canvas.Renderer[options.renderer]( options );
+  } else if (typeof options.renderer === "function") {
+    options._renderer = options.renderer( options );
+  } else {
+    throw("Unknown renderer");
+  }
 
     _html2canvas.logging = options.logging;
     options.complete = function( images ) {
