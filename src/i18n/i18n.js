@@ -12,15 +12,10 @@
 
 // Message getter function
 function _(s) {
-  if (typeof(custom_message_strings[s]) {
-    return custom_message_strings[s];
-  }
-  return s;
+  return custom_message_strings[s];
 }
 
 // Define message inheritnace
-var custom_message_strings = Object.create(i18n);
-var i18n = Object.create(default_message_strings);
 var default_message_strings = { label:          "Send Feedback"
                               , header:         "Send Feedback"
                               , nextLabel:      "Continue"
@@ -31,3 +26,5 @@ var default_message_strings = { label:          "Send Feedback"
                               , messageSuccess: "Your feedback was sent succesfully."
                               , messageError:   "There was an error sending your feedback to the server."
                               };
+var i18n = Object.create(default_message_strings);
+var custom_message_strings = Object.create(i18n);
