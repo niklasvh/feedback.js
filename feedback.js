@@ -113,18 +113,8 @@ window.Feedback = function( options ) {
     options = options || {};
 
     // default properties
-    options.header = options.header || "Send Feedback";
     options.url = options.url || "/";
     options.adapter = options.adapter || new window.Feedback.XHR( options.url );
-    
-    options.nextLabel = options.nextLabel || "Continue";
-    options.reviewLabel = options.reviewLabel || "Review";
-    options.sendLabel = options.sendLabel || "Send";
-    options.closeLabel = options.closeLabel || "Close";
-    
-    options.messageSuccess = options.messageSuccess || "Your feedback was sent succesfully.";
-    options.messageError = options.messageError || "There was an error sending your feedback to the server.";
-    
   
     if (options.pages === undefined ) {
         options.pages = [
@@ -168,7 +158,7 @@ window.Feedback = function( options ) {
 
             // build header element
             modalHeader.appendChild( a );
-            modalHeader.appendChild( element("h3", options.header ) );
+            modalHeader.appendChild( element("h3", _("header") ) );
             modalHeader.className =  "feedback-header";
 
             modalBody.className = "feedback-body";
@@ -179,7 +169,7 @@ window.Feedback = function( options ) {
 
 
             // Next button
-            nextButton = element( "button", options.nextLabel );
+            nextButton = element( "button", _("nextLabel") );
 
             nextButton.className =  "feedback-btn";
             nextButton.onclick = function() {
@@ -209,12 +199,12 @@ window.Feedback = function( options ) {
 
                     // if last page, change button label to send
                     if ( currentPage === len ) {
-                        nextButton.firstChild.nodeValue = options.sendLabel;
+                        nextButton.firstChild.nodeValue = _("sendLabel");
                     }
                     
                     // if next page is review page, change button label
                     if ( options.pages[ currentPage ] instanceof window.Feedback.Review ) {   
-                        nextButton.firstChild.nodeValue = options.reviewLabel;
+                        nextButton.firstChild.nodeValue = _("reviewLabel");
                     }
                         
 
@@ -286,7 +276,7 @@ window.Feedback = function( options ) {
                 emptyElements( modalBody );
                 nextButton.disabled = false;
                 
-                nextButton.firstChild.nodeValue = options.closeLabel;
+                nextButton.firstChild.nodeValue = _(closeLabel);
                 
                 nextButton.onclick = function() {
                     returnMethods.close();
@@ -294,9 +284,9 @@ window.Feedback = function( options ) {
                 };
                 
                 if ( success === true ) {
-                    modalBody.appendChild( document.createTextNode( options.messageSuccess ) );
+                    modalBody.appendChild( document.createTextNode( _("messageSuccess") ) );
                 } else {
-                    modalBody.appendChild( document.createTextNode( options.messageError ) );
+                    modalBody.appendChild( document.createTextNode( _("messageError") ) );
                 }
                 
             } );
