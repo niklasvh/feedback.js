@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>feedback.js api example</title>
+    <link rel="stylesheet" href="css/feedback.css"  type="text/css" media="screen" />
+
+  </head>
+
+  <body>
+
+      <div class="hero-unit">
+        <h1>Feedback.js</h1>
+        <p>This page serves as an example for how feedback.js can be invoked through the API instead of the default feedback button</p>
+        <p><a class="btn btn-primary btn-large">Learn more »</a></p>
+      </div>
+
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="span4">
+          <h2>Heading</h2>
+          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p><a class="btn" href="#_">View details »</a></p>
+        </div>
+        <div class="span4">
+          <h2>Heading</h2>
+          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p><a class="btn" href="#_">View details »</a></p>
+       </div>
+        <div class="span4">
+          <h2>Heading</h2>
+          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+          <p><a class="btn" href="#_">View details »</a></p>
+        </div>
+      </div>
+
+      <hr>
+
+      <footer>
+        <p>Feedback.js - tell us more!</p>
+      </footer>
+    </div> <!-- /container -->
+
+    <!-- Le javascript -->
+    <!-- Le javascript -->
+    <script src="js/jquery.js"></script>
+    <script src="js/feedback.js"></script>
+    
+    <script type="text/javascript">
+      $(document).ready(function() {
+        var api = Feedback({
+            h2cPath:'js/html2canvas.js',
+            appendTo: document.createElement("div"), // don't add feedback button to page
+        });
+        
+        console.log(api);
+        
+        // instead, let's open it after 2 seconds
+        window.setTimeout(function(){
+            api.open();
+        }, 2000);
+        
+      });      
+    </script>
+
+</body></html>

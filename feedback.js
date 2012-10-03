@@ -204,7 +204,7 @@ window.Feedback = function( options ) {
             modal.appendChild( modalBody );
             modal.appendChild( modalFooter );
 
-            button.parentNode.appendChild( modal );
+            document.body.appendChild( modal );
         },
 
 
@@ -286,8 +286,12 @@ window.Feedback = function( options ) {
     button.setAttribute(H2C_IGNORE, true);
 
     button.onclick = returnMethods.open;
-
-    ((options.appendTo !== undefined) ? options.appendTo : document.body).appendChild( button );
+    
+    if ( options.appendTo !== null ) {
+        ((options.appendTo !== undefined) ? options.appendTo : document.body).appendChild( button );
+    }
+    
+    return returnMethods;
 };
 window.Feedback.Page = function() {};
 window.Feedback.Page.prototype = {
