@@ -84,7 +84,7 @@ window.Feedback = function( options ) {
     options.sendLabel = options.sendLabel || "Send";
     options.closeLabel = options.closeLabel || "Close";
     
-    options.messageSuccess = options.messageSuccess || "Your feedback was sent succesfully.";
+    options.messageSuccess = options.messageSuccess || "Your feedback was sent successfully.";
     options.messageError = options.messageError || "There was an error sending your feedback to the server.";
     
   
