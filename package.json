@@ -1,0 +1,29 @@
+{
+    "name" : "feedback.js",
+    "description" : "Feedback form with screenshot.",
+    "version" : "0.0.1",
+    "keywords" : ["feedback", "js", "screenshot"],
+    "author" : {
+        "name" : "niklasvh",
+        "email":  "niklasvh@gmail.com"
+    },
+    "contributors" : [
+    {
+        "name"  : "Cleber Rodrigues",
+        "email" : "cleber@cleberrodrigues.com.br"
+    }],
+    "repository" : {
+        "type" : "git",
+        "url"  : "https://github.com/cleberar/feedback.js"
+    },
+    "licenses" : [
+    {
+        "type" : "MIT license",
+        "url" : "http://www.opensource.org/licenses/MIT"
+    }
+    ],
+    "devDependencies": {
+        "uglify-js" : "1.2.6",
+        "jshint"    : "0.6.1"
+    }
+}
