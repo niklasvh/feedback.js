@@ -86,7 +86,8 @@ window.Feedback = function( options ) {
     
     options.messageSuccess = options.messageSuccess || "Your feedback was sent successfully.";
     options.messageError = options.messageError || "There was an error sending your feedback to the server.";
-    
+   
+    options.btnClassName = options.btnClassName || "feedback-btn feedback-bottom-right"; 
   
     if (options.pages === undefined ) {
         options.pages = [
@@ -273,7 +274,7 @@ window.Feedback = function( options ) {
     options = options || {};
 
     button = element( "button", options.label );
-    button.className = "feedback-btn feedback-bottom-right";
+    button.className = options.btnClassName;
 
     button.setAttribute(H2C_IGNORE, true);
 
