@@ -79,7 +79,7 @@ window.Feedback.Form.prototype.review = function( dom ) {
         
         if (item.element.value.length > 0) {
             dom.appendChild( element("label", item.name + ":") );
-            dom.appendChild( document.createTextNode( item.element.value.length ) );
+            dom.appendChild( document.createTextNode( item.element.value ) );
             dom.appendChild( document.createElement( "hr" ) );
         }
         
