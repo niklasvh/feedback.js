@@ -192,8 +192,8 @@ window.Feedback.Screenshot.prototype.start = function( modal, modalHeader, modal
             highlightClose.style.top =  "-50px";
 
         },
-        blackoutButton = element("a", "Blackout"),
-        highlightButton = element("a", "Highlight"),
+        blackoutButton = element("a", this.options.blackoutLabel),
+        highlightButton = element("a", this.options.highlightLabel),
         previousElement;
 
 
@@ -217,7 +217,7 @@ window.Feedback.Screenshot.prototype.start = function( modal, modalHeader, modal
 
         var buttonItem = [ highlightButton, blackoutButton ];
 
-        this.dom.appendChild( element("p", "Highlight or blackout important information") );
+        this.dom.appendChild( element("p", this.options.highlightOrBlackoutMessage) );
 
         // add highlight and blackout buttons
         for (var i = 0; i < 2; i++ ) {

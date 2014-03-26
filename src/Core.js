@@ -87,6 +87,9 @@ window.Feedback = function( options ) {
     options.messageSuccess = options.messageSuccess || "Your feedback was sent successfully.";
     options.messageError = options.messageError || "There was an error sending your feedback to the server.";
     
+    options.highlightLabel = options.highlightLabel || "Highlight";
+    options.hightOrBlackoutMessage = options.hightOrBlackoutMessage || "Highlight or blackout important information";
+    
   
     if (options.pages === undefined ) {
         options.pages = [
