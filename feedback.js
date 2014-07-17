@@ -373,11 +373,6 @@ window.Feedback.Form.prototype.end = function() {
 
 window.Feedback.Form.prototype.data = function() {
     
-    if ( this._data !== undefined ) {
-        // return cached value
-        return this._data;
-    }
-    
     var i = 0, len = this.elements.length, item, data = {};
     
     for (; i < len; i++) {
@@ -763,10 +758,6 @@ window.Feedback.Screenshot.prototype.render = function() {
 };
 
 window.Feedback.Screenshot.prototype.data = function() {
-
-    if ( this._data !== undefined ) {
-        return this._data;
-    }
 
     if ( this.h2cCanvas !== undefined ) {
       
