@@ -1,0 +1,22 @@
+{
+  "name": "feedback",
+  "description": "Feedback form",
+  "version": "0.0.1",
+  "keywords": [],
+  "homepage": "http://experiments.hertzen.com/jsfeedback",
+  "dependencies": {},
+  "devDependencies": {},
+  "license": [],
+  "main": [
+    "./feedback.js"
+  ],
+  "ignore": [
+    "*/.*",
+    "*.json",
+    "src",
+    "examples",
+    "*.yml",
+    "rakefile.rb",
+    "*.md"
+  ]
+}
