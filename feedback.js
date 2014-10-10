@@ -512,7 +512,18 @@
                 }
 
                 // don't do anything if we are highlighting a close button or body tag
-                if (e.target.nodeName === "BODY" || e.target === highlightClose || e.target === modal || e.target === nextButton || e.target.parentNode === modal || e.target.parentNode === modalHeader) {
+                if (e.target.nodeName === "BODY" ||
+                    e.target === highlightClose ||
+                    e.target === modal ||
+                    e.target === modalHeader ||
+                    e.target.parentNode === modalHeader ||
+                    e.target === modalBody ||
+                    e.target.parentNode === modalBody ||
+                    e.target.parentNode.parentNode === modalBody ||
+                    e.target === modalFooter ||
+                    e.target.parentNode === modalFooter ||
+                    e.target === nextButton
+                ) {
                     // we are not gonna blackout the whole page or the close item
                     clearBox();
                     previousElement = e.target;
