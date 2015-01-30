@@ -340,12 +340,17 @@ window.Feedback.Form.prototype.render = function() {
     for (; i < len; i++) {
         item = this.elements[ i ];
 
-        switch( item.type ) {
-            case "textarea":
-                this.dom.appendChild( element("label", item.label + ":" + (( item.required === true ) ? " *" : "")) );
-                this.dom.appendChild( ( item.element = document.createElement("textarea")) );
-                break;
-        }
+        // Create a DOM element (textfield, select, input, ...).
+        item.element = document.createElement(item.type);
+
+        // Iterate over any possible HTML attributes.
+        if (item.attributes) {
+            for (var key in item.attributes) {
+                item.element.setAttribute(key, item.attributes[key]);
+            };
+        };
+        this.dom.appendChild( element("label", item.label + ":" + (( item.required === true ) ? " *" : "")) );
+        this.dom.appendChild(item.element);
     }
 
     return this;
