@@ -16,11 +16,25 @@ var log = function( msg ) {
 },
 // function to remove elements, input as arrays
 removeElements = function( remove ) {
-    for (var i = 0, len = remove.length; i < len; i++ ) {
-        var item = Array.prototype.pop.call( remove );
-        if ( item !== undefined ) {
-            if (item.parentNode !== null ) { // check that the item was actually added to DOM
-                item.parentNode.removeChild( item );
+    if (!Array.isArray(remove)) {
+        Array.prototype.forEach.call(
+            remove,
+            function (index, item) {
+                if (item !== undefined) {
+                    if (item.parentNode !== undefined) {
+                        item.parentNode.removeChild(item);
+                    }
+                }
+            }
+        );
+        return;
+    }
+
+    var item;
+    for (; item = Array.prototype.pop.call(remove);) {
+        if (item !== undefined) {
+            if (item.parentNode !== null) { // check that the item was actually added to DOM
+                item.parentNode.removeChild(item);
             }
         }
     }
